@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
       <Router>
-        <div>
+        <div className="flex w-full items-center justify-center">
           <Routes>
             <Route path="/" element={<IndexPage />} />
             <Route path="/login" element={<LoginPage />} />
