@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -6,6 +6,11 @@ import { Label } from "@/components/ui/label";
 
 
 export const ForgotPasswordPage: React.FC = () => {
+	const [email, setEmail] = useState<string>("")
+
+	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setEmail(e.target.value)
+	}
 	return (
 		<div className="flex items-center justify-center w-full">
 			<div className="flex flex-col w-3/5 gap-6">
@@ -33,6 +38,8 @@ export const ForgotPasswordPage: React.FC = () => {
 										type="email"
 										placeholder="m@example.com"
 										required
+										value={email}
+										onChange={handleEmailChange}
 									/>
 								</div>
 								<div className="flex w-full">

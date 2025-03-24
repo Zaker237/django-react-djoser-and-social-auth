@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -6,6 +6,32 @@ import { Label } from "@/components/ui/label"
 
 
 export const SignupPage: React.FC = () => {
+	const [email, setEmail] = useState<string>("")
+	const [password, setPassword] = useState<string>("")
+	const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
+	const [firstname, setFirstname] = useState<string>("")
+	const [lastname, setLastname] = useState<string>("")
+
+	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setEmail(e.target.value)
+	}
+
+	const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setPassword(e.target.value)
+	}
+
+	const handlePasswordConfirmationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setPasswordConfirmation(e.target.value)
+	}
+
+	const handleFirstnameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setFirstname(e.target.value)
+	}
+
+	const handleLastnameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setLastname(e.target.value)
+	}
+
 	return (
 		<div className="flex items-center justify-center w-full">
 			<div className="flex flex-col w-3/5 gap-6">
@@ -34,6 +60,8 @@ export const SignupPage: React.FC = () => {
 											type="firstname"
 											placeholder="Alex"
 											required
+											value={firstname}
+											onChange={handleFirstnameChange}
 										/>
 									</div>
 									<div className="grid gap-2 w-full">
@@ -43,6 +71,8 @@ export const SignupPage: React.FC = () => {
 											type="lastname"
 											placeholder="Walker"
 											required
+											value={lastname}
+											onChange={handleLastnameChange}
 										/>
 									</div>
 								</div>
@@ -53,19 +83,21 @@ export const SignupPage: React.FC = () => {
 										type="email"
 										placeholder="m@example.com"
 										required
+										value={email}
+										onChange={handleEmailChange}
 									/>
 								</div>
 								<div className="grid gap-2">
 									<div className="flex items-center">
 										<Label htmlFor="password">Password</Label>
 									</div>
-									<Input id="password" type="password" required />
+									<Input id="password" type="password" required value={password} onChange={handlePasswordChange} />
 								</div>
 								<div className="grid gap-2">
 									<div className="flex items-center">
 										<Label htmlFor="password_confirmation">Password Confirmation</Label>
 									</div>
-									<Input id="password_confirmation" type="password" required />
+									<Input id="password_confirmation" type="password" required value={passwordConfirmation} onChange={handlePasswordConfirmationChange} />
 								</div>
 								<a
 									href="#"
