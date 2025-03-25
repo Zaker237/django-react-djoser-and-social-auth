@@ -1,12 +1,10 @@
-
-import './App.css'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { LoginPage } from './views/LoginPage'
-import { IndexPage } from './views/IndexPage'
-import { SignupPage } from './views/SignupPage'
-import { ForgotPasswordPage } from './views/ForgotPasswordPage'
-import { ResetPasswordPage } from './views/ResetPasswordPage'
-
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { LoginPage } from "./views/LoginPage";
+import { IndexPage } from "./views/IndexPage";
+import { SignupPage } from "./views/SignupPage";
+import { ForgotPasswordPage } from "./views/ForgotPasswordPage";
+import { ResetPasswordPage } from "./views/ResetPasswordPage";
 
 function App() {
   return (
@@ -18,12 +16,15 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/reset-password" element={<ForgotPasswordPage />} />
-            <Route path="/password/reset/confirm/:uid/:token" element={<ResetPasswordPage />} />
+            <Route
+              path="/password/reset/confirm/:uid/:token"
+              element={<ResetPasswordPage />}
+            />
           </Routes>
         </div>
       </Router>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
