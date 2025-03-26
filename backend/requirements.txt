@@ -1,3 +1,4 @@
 djoser==2.3.1
 django==5.1.7
+django-cors-headers==4.6.0
 djangorestframework==3.15.2
