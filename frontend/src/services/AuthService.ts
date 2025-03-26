@@ -36,10 +36,16 @@ export class AuthService {
   }
 
   public static async loadUser(): Promise<IAuthUser> {
+    const accessToken = localStorage.getItem("access");
+    if (!accessToken) {
+      throw new Error("Access token not found");
+    }
+
     const response = await fetch(auths.LOAD_USER, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `JWT ${accessToken}`,
       },
     });
     if (response.status === 200) {
