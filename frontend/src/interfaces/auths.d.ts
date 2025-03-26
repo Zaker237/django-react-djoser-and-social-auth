@@ -11,6 +11,11 @@ export interface ILoginUser {
   password: string;
 }
 
+export interface IAuthTokens {
+  access: string;
+  refresh: string;
+}
+
 export interface IAuthUser {
   id: number;
   email: string;

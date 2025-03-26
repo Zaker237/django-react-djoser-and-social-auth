@@ -1,8 +1,13 @@
-import { ICreateUser, ILoginUser, IAuthUser } from "@/interfaces/auths";
+import {
+  ICreateUser,
+  ILoginUser,
+  IAuthUser,
+  IAuthTokens,
+} from "@/interfaces/auths";
 import { auths } from "@/constants/enpoints";
 
 export class AuthService {
-  public static async login(user: ILoginUser) {
+  public static async login(user: ILoginUser): Promise<IAuthTokens> {
     const response = await fetch(auths.LOGIN, {
       method: "POST",
       headers: {
@@ -10,8 +15,8 @@ export class AuthService {
       },
       body: JSON.stringify({ ...user }),
     });
-    if (response.ok) {
-      return response.json();
+    if (response.status === 200) {
+      return response.json() as Promise<IAuthTokens>;
     }
     throw new Error("Login failed");
   }
@@ -28,5 +33,18 @@ export class AuthService {
       return response.json() as Promise<IAuthUser>;
     }
     throw new Error("Signup failed");
+  }
+
+  public static async loadUser(): Promise<IAuthUser> {
+    const response = await fetch(auths.LOAD_USER, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 200) {
+      return response.json() as Promise<IAuthUser>;
+    }
+    throw new Error("Load user failed");
   }
 }
