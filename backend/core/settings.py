@@ -166,8 +166,8 @@ SIMPLE_JWT = {
 }
 
 # usefull for email templates sent to users
-DOMAIN = os.environ.get("DOMAIN")
-SITE_NAME = os.environ.get("SITE_NAME")
+DOMAIN = os.environ.get("DOMAIN", "localhost:5173")
+SITE_NAME = os.environ.get("SITE_NAME", "localhost")
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

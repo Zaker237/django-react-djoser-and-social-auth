@@ -9,6 +9,8 @@ services:
     volumes:
       - ./frontend/src:/code/src/
       - ./frontend/public:/code/public/
+    ports:
+      - 8080:8080
 
   backend:
     container_name: backend
@@ -16,7 +18,7 @@ services:
       context: ./backend/
       dockerfile: Dockerfile
     volumes:
-      - ./backend/backend:/code/backend/
+      - ./backend/:/code/
     ports:
       - 8000:8000
 
