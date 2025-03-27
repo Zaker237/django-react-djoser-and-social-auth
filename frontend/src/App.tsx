@@ -5,6 +5,7 @@ import { IndexPage } from "./views/IndexPage";
 import { SignupPage } from "./views/SignupPage";
 import { ForgotPasswordPage } from "./views/ForgotPasswordPage";
 import { ResetPasswordPage } from "./views/ResetPasswordPage";
+import { AccountActivationPage } from "./views/AccountActivationPage";
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
             <Route
               path="/password/reset/confirm/:uid/:token"
               element={<ResetPasswordPage />}
+            />
+            <Route
+              path="/activate/:uid/:token"
+              element={<AccountActivationPage />}
             />
           </Routes>
         </div>
