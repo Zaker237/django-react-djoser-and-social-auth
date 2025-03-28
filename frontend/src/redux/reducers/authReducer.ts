@@ -55,6 +55,12 @@ export const authReducer = (
       return new AuthState();
     case authActionTypes.LOGOUT_FAILURE:
       return { ...state, IsLoading: false };
+    case authActionTypes.PASSWORD_RESET_CONFIRM:
+      return { ...state, IsLoading: true };
+    case authActionTypes.PASSWORD_RESET_CONFIRM_SUCCESS:
+      return { ...state, IsLoading: false };
+    case authActionTypes.PASSWORD_RESET_CONFIRM_FAILURE:
+      return { ...state, IsLoading: false, Error: action.payload };
     default:
       return state;
   }

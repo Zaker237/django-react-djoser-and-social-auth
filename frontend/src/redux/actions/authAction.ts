@@ -65,7 +65,7 @@ export const loadUser = () => async (dispatch: Dispatch<IReduxAction>) => {
   }
 };
 
-export const verify =
+export const activate =
   (uid: string, token: string) => async (dispatch: Dispatch<IReduxAction>) => {
     dispatch({ type: authActionTypes.ACTIVATION });
     try {
@@ -74,6 +74,27 @@ export const verify =
     } catch (error) {
       dispatch({
         type: authActionTypes.ACTIVATION_FAILURE,
+        error: (error as Error).message,
+      });
+      throw error;
+    }
+  };
+
+export const resetPassword =
+  (uid: string, token: string, new_password: string, re_new_password: string) =>
+  async (dispatch: Dispatch<IReduxAction>) => {
+    dispatch({ type: authActionTypes.PASSWORD_RESET_CONFIRM });
+    try {
+      await AuthService.resetPassword(
+        uid,
+        token,
+        new_password,
+        re_new_password
+      );
+      dispatch({ type: authActionTypes.PASSWORD_RESET_CONFIRM_SUCCESS });
+    } catch (error) {
+      dispatch({
+        type: authActionTypes.PASSWORD_RESET_CONFIRM_FAILURE,
         error: (error as Error).message,
       });
       throw error;

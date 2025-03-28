@@ -41,7 +41,7 @@ export const LoginPage: React.FC = () => {
   return (
     <div className="flex items-center justify-center w-full">
       <div className="flex flex-col w-3/5 gap-6">
-        <Card className="overflow-hidden w-full">
+        <Card className="w-full">
           <CardContent className="w-full grid p-0 md:grid-cols-2">
             <form className="p-6 md:p-8" onSubmit={handleSubmit}>
               <div className="flex flex-col gap-6">
