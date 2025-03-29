@@ -108,4 +108,18 @@ export class AuthService {
     }
     throw new Error("Reset password failed");
   }
+
+  public static async getGoogleAuthUrl(): Promise<string> {
+    const response = await fetch(auths.GOOGLE_AUTHORIZATION_URL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 200) {
+      const data = await response.json();
+      return data.authorization_url;
+    }
+    throw new Error("Google auth URL fetch failed");
+  }
 }
