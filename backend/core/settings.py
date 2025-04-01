@@ -45,9 +45,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "djoser",
+    "social_django",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
     "accounts",
+    "corsheaders",
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -154,7 +156,7 @@ REST_FRAMEWORK = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    "social_core.backends.google.GoogleOAuth2",  # <-- google social auth
+    'social_core.backends.google.GoogleOAuth2',  # <-- google social auth
     "django.contrib.auth.backends.ModelBackend",
 )
 
@@ -210,3 +212,16 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     "openid",
 ]
 SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ["first_name", "last_name"]
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    # 'social_core.pipeline.user.create_user', # Djoser often handles user creation/linking differently
+    # Consider custom steps or Djoser's default behavior for linking/creation
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
