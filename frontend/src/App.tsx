@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { LoginPage } from "./views/LoginPage";
 import { IndexPage } from "./views/IndexPage";
 import { SignupPage } from "./views/SignupPage";
+import { GoogleAuthPage } from "./views/GoogleAuthPage";
 import { ForgotPasswordPage } from "./views/ForgotPasswordPage";
 import { ResetPasswordPage } from "./views/ResetPasswordPage";
 import { AccountActivationPage } from "./views/AccountActivationPage";
@@ -25,6 +26,7 @@ function App() {
               path="/activate/:uid/:token"
               element={<AccountActivationPage />}
             />
+            <Route path="/auth/google" element={<GoogleAuthPage />} />
           </Routes>
         </div>
       </Router>

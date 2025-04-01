@@ -61,6 +61,48 @@ export const authReducer = (
       return { ...state, IsLoading: false };
     case authActionTypes.PASSWORD_RESET_CONFIRM_FAILURE:
       return { ...state, IsLoading: false, Error: action.payload };
+    case authActionTypes.GOOGLE_AUTHENTICATE:
+      return { ...state, IsLoading: true };
+    case authActionTypes.GOOGLE_AUTHENTICATE_SUCCESS:
+      localStorage.setItem("access", action.payload.access);
+      localStorage.setItem("refresh", action.payload.refresh);
+      return {
+        ...state,
+        Access: action.payload.access,
+        Refresh: action.payload.refresh,
+        IsAuthenticated: true,
+        IsLoading: false,
+      };
+    case authActionTypes.GOOGLE_AUTHENTICATE_FAILURE:
+      return {
+        ...state,
+        Error: action.payload,
+        IsAuthenticated: false,
+        Access: null,
+        Refresh: null,
+        IsLoading: false,
+      };
+    case authActionTypes.GITHUB_AUTHENTICATE:
+      return { ...state, IsLoading: true };
+    case authActionTypes.GITHUB_AUTHENTICATE_SUCCESS:
+      localStorage.setItem("access", action.payload.access);
+      localStorage.setItem("refresh", action.payload.refresh);
+      return {
+        ...state,
+        Access: action.payload.access,
+        Refresh: action.payload.refresh,
+        IsAuthenticated: true,
+        IsLoading: false,
+      };
+    case authActionTypes.GITHUB_AUTHENTICATE_FAILURE:
+      return {
+        ...state,
+        Error: action.payload,
+        IsAuthenticated: false,
+        Access: null,
+        Refresh: null,
+        IsLoading: false,
+      };
     default:
       return state;
   }

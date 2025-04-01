@@ -122,4 +122,49 @@ export class AuthService {
     }
     throw new Error("Google auth URL fetch failed");
   }
+
+  public static async getGithubAuthUrl(): Promise<string> {
+    const response = await fetch(auths.GITHUB_AUTHORIZATION_URL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 200) {
+      const data = await response.json();
+      return data.authorization_url;
+    }
+    throw new Error("Github auth URL fetch failed");
+  }
+  public static async googleAuthenticate(code: string, state: string): Promise<IAuthTokens> {
+    if (state && code && !localStorage.getItem("access")) {
+      const headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+      };
+
+      const details: Record<string, string> = {
+        code: code,
+        state: state,
+        redirect_uri: auths.GOOGLE_AUTHORIZATION_URL
+      };
+
+      const formBody = Object.keys(details)
+        .map(
+          (key: string) =>
+            encodeURIComponent(key) + "=" + encodeURIComponent(details[key])
+        )
+        .join("&");
+
+      const response = await fetch(auths.GOOGLE_AUTHORIZATION_CALLBACK + formBody, {
+        method: "POST",
+        headers: headers
+      });
+      if (response.status === 200) {
+        return response.json() as Promise<IAuthTokens>;
+      }
+      throw new Error("Google authentication failed");
+    } else {
+      throw new Error("Google authentication failed");
+    }
+  }
 }

@@ -82,21 +82,40 @@ export const activate =
 
 export const resetPassword =
   (uid: string, token: string, new_password: string, re_new_password: string) =>
-  async (dispatch: Dispatch<IReduxAction>) => {
-    dispatch({ type: authActionTypes.PASSWORD_RESET_CONFIRM });
+    async (dispatch: Dispatch<IReduxAction>) => {
+      dispatch({ type: authActionTypes.PASSWORD_RESET_CONFIRM });
+      try {
+        await AuthService.resetPassword(
+          uid,
+          token,
+          new_password,
+          re_new_password
+        );
+        dispatch({ type: authActionTypes.PASSWORD_RESET_CONFIRM_SUCCESS });
+      } catch (error) {
+        dispatch({
+          type: authActionTypes.PASSWORD_RESET_CONFIRM_FAILURE,
+          error: (error as Error).message,
+        });
+        throw error;
+      }
+    };
+
+
+export const googleAuthenticate =
+  (code: string, state: string) => async (dispatch: Dispatch<IReduxAction>) => {
+    dispatch({ type: authActionTypes.GOOGLE_AUTHENTICATE });
     try {
-      await AuthService.resetPassword(
-        uid,
-        token,
-        new_password,
-        re_new_password
-      );
-      dispatch({ type: authActionTypes.PASSWORD_RESET_CONFIRM_SUCCESS });
+      const response = await AuthService.googleAuthenticate(code, state);
+      dispatch({ type: authActionTypes.GOOGLE_AUTHENTICATE_SUCCESS, payload: response });
+      dispatch({ type: authActionTypes.LOAD_USER });
+      const user = await AuthService.loadUser();
+      dispatch({ type: authActionTypes.LOAD_USER_SUCCESS, payload: user });
     } catch (error) {
       dispatch({
-        type: authActionTypes.PASSWORD_RESET_CONFIRM_FAILURE,
+        type: authActionTypes.GOOGLE_AUTHENTICATE_FAILURE,
         error: (error as Error).message,
       });
       throw error;
     }
-  };
+  }
